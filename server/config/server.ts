@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser'
 import swaggerify from './swagger'
 import l from './logger'
 import Mongoose from './mongoose'
-import passport from '../config/passport'
+import passport from 'passport'
 
 const app = express()
 const mongoose = new Mongoose()
