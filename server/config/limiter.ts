@@ -1,24 +1,24 @@
-import { RateLimiterMemory } from "rate-limiter-flexible";
-import { NextFunction, Request, Response } from "express";
+import { RateLimiterMemory } from 'rate-limiter-flexible'
+import { NextFunction, Request, Response } from 'express'
 
 class Limiter {
   rateLimiter = new RateLimiterMemory({
-    points: 3,
+    points: 50,
     duration: 86400
-  });
+  })
 
   limitMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const userId = "";
-    // Consume 1 point for each action
+    const userId = req.user['_id']
+
     this.rateLimiter
       .consume(userId)
       .then(() => {
-        next();
+        next()
       })
-      .catch(rejRes => {
-        res.status(429).send("You can do only 50 calls per 24 hours");
-      });
-  };
+      .catch((rejRes) => {
+        res.status(429).send('You can do only 50 calls per 24 hours')
+      })
+  }
 }
 
-export default new Limiter();
+export default new Limiter()
