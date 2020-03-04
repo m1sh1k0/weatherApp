@@ -10,5 +10,5 @@ export default express
   .post('/users', userController.create)
   .put('/users/:id', userController.put)
   .post('/login', authController.login)
-  .post('/logout', authController.logout)
+  .post('/logout', token(true), authController.logout)
   .get('/weather', token(true), limit.limitMiddleware, fetchWeather)
